@@ -1,0 +1,30 @@
+version: '3'
+services:
+  teaapi:
+    build:
+      context: ./TeaAPI
+      dockerfile: Dockerfile
+    ports:
+      - 35102:80
+      - 36102:443
+    environment:
+      ASPNETCORE_URLS: "https://+;http://+"
+      ASPNETCORE_HTTPS_PORT: 36102
+      ASPNETCORE_ENVIRONMENT: "Development"
+    volumes:
+      - ${APPDATA}\microsoft\UserSecrets\:/root/.microsoft/usersecrets
+      - ${USERPROFILE}\.aspnet\https:/root/.aspnet/https/
+  coffeeapi:
+    build:
+      context: ./CoffeeAPI
+      dockerfile: Dockerfile
+    ports:
+      - 35103:80
+      - 36103:443
+    environment:
+      ASPNETCORE_URLS: "https://+;http://+"
+      ASPNETCORE_HTTPS_PORT: 36103
+      ASPNETCORE_ENVIRONMENT: "Development"
+    volumes:
+      - ${APPDATA}\microsoft\UserSecrets\:/root/.microsoft/usersecrets
+      - ${USERPROFILE}\.aspnet\https:/root/.aspnet/https/
